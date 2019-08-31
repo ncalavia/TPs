@@ -15,14 +15,15 @@
 #define RETORNO_ INVALIDO -1
 
 int ingresoNumeros(int *num1,int *num2);
-int esNumero(int prenumero);
+int mostrarMenu(int num1ingresado,int num2ingresado);
 
 int main(void)
 {
-	int num1;
-	int num2;
+	int num1ingresado;
+	int num2ingresado;
 
-	ingresoNumeros(&num1, &num2);
+	ingresoNumeros(&num1ingresado, &num2ingresado);
+	mostrarMenu(num1ingresado, num2ingresado);
 	return 0;
 }
 
@@ -42,6 +43,17 @@ int ingresoNumeros(int *numero1, int *numero2)
 		printf("Ingrese el 2do numero");
 		__fpurge(stdin);
 	} while (scanf("%d", &prenumero2) != 1);
+
+	*numero1 = prenumero1;
+	*numero2 = prenumero2;
 	return 0;
 }
-
+int mostrarMenu(int num1ingresado,int num2ingresado)
+{
+	printf("a) Calcular la suma (%d+%d) \n",num1ingresado,num2ingresado);
+	printf("b) Calcular la resta (%d-%d) \n",num1ingresado,num2ingresado);
+	printf("c) Calcular la division (%d/%d) \n",num1ingresado,num2ingresado);
+	printf("d) Calcular la multiplicacion (%d*%d) \n",num1ingresado,num2ingresado);
+	printf("e) Calcular factorial (%d!) \n",num1ingresado);
+	return 0;
+}
