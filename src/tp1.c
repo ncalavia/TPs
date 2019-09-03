@@ -67,10 +67,12 @@ int mostrarMenu(int num1ingresado,int num2ingresado)
 int pedirOperacion(char *operIngresada)
 {
 	char preIngreso;
+	__fpurge(stdin);
 	printf("ingrese opcion");
-	scanf("%c", preIngreso);
-	while (preIngreso != 'a' || preIngreso != 'b' || preIngreso != 'c' || preIngreso != 'd' || preIngreso != 'e' )
+	scanf("%c", &preIngreso);
+	while (preIngreso != 'a' && preIngreso != 'b' && preIngreso != 'c' && preIngreso != 'd' && preIngreso != 'e' )
 	{
+		__fpurge(stdin);
 		printf("Ingrese nuevamente 'a' 'b' 'c' 'd' o 'e'");
 		scanf("%c", &preIngreso);
 	}
