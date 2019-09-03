@@ -11,19 +11,25 @@
 #include <stdio_ext.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 #define RETORNO_EXITOSO 0
 #define RETORNO_ INVALIDO -1
 
 int ingresoNumeros(int *num1,int *num2);
 int mostrarMenu(int num1ingresado,int num2ingresado);
+int pedirOperacion(char *operIngresada);
 
-int main(void)
-{
+int main(void){
 	int num1ingresado;
 	int num2ingresado;
+	char operIngresada;
 
-	ingresoNumeros(&num1ingresado, &num2ingresado);
+
+	ingresoNumeros( &num1ingresado, &num2ingresado);
 	mostrarMenu(num1ingresado, num2ingresado);
+	pedirOperacion( &operIngresada);
+	printf("%c", operIngresada);
+
 	return 0;
 }
 
@@ -55,5 +61,20 @@ int mostrarMenu(int num1ingresado,int num2ingresado)
 	printf("c) Calcular la division (%d/%d) \n",num1ingresado,num2ingresado);
 	printf("d) Calcular la multiplicacion (%d*%d) \n",num1ingresado,num2ingresado);
 	printf("e) Calcular factorial (%d!) \n",num1ingresado);
+	return 0;
+}
+
+int pedirOperacion(char *operIngresada)
+{
+	char preIngreso;
+	printf("ingrese opcion");
+	scanf("%c", preIngreso);
+	while (preIngreso != 'a' || preIngreso != 'b' || preIngreso != 'c' || preIngreso != 'd' || preIngreso != 'e' )
+	{
+		printf("Ingrese nuevamente 'a' 'b' 'c' 'd' o 'e'");
+		scanf("%c", &preIngreso);
+	}
+
+		*operIngresada=preIngreso;
 	return 0;
 }
