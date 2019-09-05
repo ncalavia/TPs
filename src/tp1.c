@@ -15,131 +15,112 @@
 #define RETORNO_EXITOSO 0
 #define RETORNO_INVALIDO -1
 
-int ingresoNumeros(float *num1,float *num2);
-void mostrarMenu(float num1ingresado,float num2ingresado);
-int pedirOperacion(char *operIngresada);
-int realizarOperacion(char operIngresada, float num1ingresado,float num2ingresado, float *resultado);
-long factorial(float num1ingresado);
-void mostrarResultado(float resultado);
-int pedirContinuar(char *reIngresar);
 
-int main(void){
-	float num1ingresado;
-	float num2ingresado;
-	char operIngresada;
-	float resultado;
-	int primerOperacion = 0;
-	char reIngresar = 'n';
+int pedirOpcionMenu(int *opcionSeleccionada);
+void mostrarMenu();
+int opcionMenuValido(int preOpcion);
+int pedirOperando1(float *operando1,int *flagOperando1);
+int pedirOperando2(float *operando2,int *flagOperando2);
+int ejecutarOpcion(int opcionSeleccionada);
 
-	while(primerOperacion == 0 || reIngresar == 's')
-	{
-		ingresoNumeros( &num1ingresado, &num2ingresado);
-		mostrarMenu(num1ingresado, num2ingresado);
-		pedirOperacion( &operIngresada);
-		realizarOperacion( operIngresada, num1ingresado, num2ingresado, &resultado);
-		mostrarResultado(resultado);
-		pedirContinuar( &reIngresar);
-		primerOperacion=1;
-	}
-	return 0;
-}
-
-int ingresoNumeros(float *numero1, float *numero2)
+int main(void)
 {
-	float prenumero1;
-	float prenumero2;
+	int opcionSeleccionada;
+
 
 	do
 	{
-		printf("Ingrese el 1er numero");
-		__fpurge(stdin);
-	} while (scanf("%f", &prenumero1) != 1);
+		mostrarMenu();
+		pedirOpcionMenu( &opcionSeleccionada);
+		ejecutarOpcion(opcionSeleccionada);
+	}while(opcionSeleccionada !=5);
 
+	return 0;
+}
+
+void mostrarMenu()
+{
+	printf("1. Ingresar 1er operando (A=x) \n");
+	printf("2. Ingresar 2do operando (B=y)\n");
+	printf("3. Calcular todas las operaciones \n");
+	printf("4. Informar resultados \n");
+	printf("5. Salir \n");
+}
+int pedirOpcionMenu(int *opcionSeleccionada)
+{
+	int preOpcion;
 	do
 	{
-		printf("Ingrese el 2do numero");
 		__fpurge(stdin);
-	} while (scanf("%f", &prenumero2) != 1);
-
-	*numero1 = prenumero1;
-	*numero2 = prenumero2;
+		printf("Ingrese opcion ");
+	}while (scanf("%d", &preOpcion) != 1 || opcionMenuValido(preOpcion) != 0);
+	*opcionSeleccionada = preOpcion;
 	return 0;
 }
-void mostrarMenu(float num1ingresado,float num2ingresado)
-{
-	printf("a) Calcular la suma (%f+%f) \n",num1ingresado,num2ingresado);
-	printf("b) Calcular la resta (%f-%f) \n",num1ingresado,num2ingresado);
-	printf("c) Calcular la division (%f/%f) \n",num1ingresado,num2ingresado);
-	printf("d) Calcular la multiplicacion (%f*%f) \n",num1ingresado,num2ingresado);
-	printf("e) Calcular factorial (%f!) \n",num1ingresado);
-}
-int pedirOperacion(char *operIngresada)
-{
-	char preIngreso;
-	__fpurge(stdin);
-	printf("ingrese opcion");
-	scanf("%c", &preIngreso);
-	while (preIngreso != 'a' && preIngreso != 'b' && preIngreso != 'c' && preIngreso != 'd' && preIngreso != 'e' )
-	{
-		__fpurge(stdin);
-		printf("Ingrese nuevamente 'a' 'b' 'c' 'd' o 'e'");
-		scanf("%c", &preIngreso);
-	}
+int opcionMenuValido(int preOpcion)
 
-		*operIngresada=preIngreso;
-	return 0;
-}
-int realizarOperacion(char operIngresada, float num1ingresado,float num2ingresado, float *resultado)
 {
-	float preResultado=0;
-	int retorno;
-
-	switch(operIngresada)
+	int retorno =-1;
+	if(preOpcion == 1 || preOpcion == 2 || preOpcion == 3 || preOpcion == 4 || preOpcion == 5)
 	{
-		case 'a':
-			preResultado = num1ingresado+num2ingresado;
-			break;
-		case 'b':
-			preResultado = num1ingresado-num2ingresado;
-			break;
-	    case 'c':
-	    	preResultado = num1ingresado/num2ingresado;
-	    	break;
-	    case 'd':
-	    	preResultado = num1ingresado*num2ingresado;
-	    	break;
-	    case 'e':
-	    	preResultado = factorial(num1ingresado);
-	    	break;
-	    default:
-	    	retorno = RETORNO_INVALIDO;
-	    	break;
+		retorno = 0;
 	}
-	*resultado = preResultado;
-	retorno=RETORNO_EXITOSO;
 	return retorno;
 }
-long factorial(float numero)
+int pedirOperando1(float *operando1,int *flagOperando1)    // pedir - validar - cambiar valor de bandera al ingresar en operando1
 {
-	int c;
-	long resultado = 1;
-
-	for (c = 1; c <= numero; c++)
+	float preOperando1;
+	int preflagOperando1;
+	do
 	{
-		resultado = resultado * c;
-	}
-	return resultado;
-}
-void mostrarResultado(float resultado)
-{
-	printf("El resultado es : %f \n",resultado);
-}
-int pedirContinuar(char *reIngresar)
-{
-	char preReingreso;
-	__fpurge(stdin);
-	printf("Desea realizar otra operacion (n/s) :");
-	scanf("%c", &preReingreso);
-	*reIngresar = preReingreso;
+		printf("Ingrese el 1er operando");
+		__fpurge(stdin);
+	} while (scanf("%f", &preOperando1) != 1);
+	*operando1 = preOperando1;
+	preflagOperando1 = 1;
+	*flagOperando1 = preflagOperando1;
 	return 0;
 }
+int pedirOperando2(float *operando2,int *flagOperando2)    // pedir - validar - cambiar valor de bandera al ingresar en operando1
+{
+	float preOperando2;
+	int preflagOperando2;
+	do
+	{
+		printf("Ingrese el 2do operando");
+		__fpurge(stdin);
+	} while (scanf("%f", &preOperando2) != 1);
+	*operando2 = preOperando2;
+	preflagOperando2 = 2;
+	*flagOperando2 = preflagOperando2;
+	return 0;
+}
+
+int ejecutarOpcion(int opcionSeleccionada)
+{
+	float operando1;
+	int flagOperando1=0;
+	float operando2;
+	int flagOperando2=0;
+
+	switch(opcionSeleccionada)
+			{
+				case 1:
+					pedirOperando1(&operando1, &flagOperando1);
+					break;
+				case 2:
+					pedirOperando2(&operando2, &flagOperando2);
+					break;
+				case 3:
+					if(flagOperando1 == 1 && flagOperando2 == 1)
+					{
+						printf("los dos operando ingresados \n");
+					}
+					else
+						printf("Debera ingresar los operando para esta opcion \n");
+					break;
+			}
+	return 0;
+}
+
+
