@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/funcionesmat.c \
 ../src/tp1.c 
 
 OBJS += \
+./src/funcionesmat.o \
 ./src/tp1.o 
 
 C_DEPS += \
+./src/funcionesmat.d \
 ./src/tp1.d 
 
 

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include "funcionesmat.h"
 #define RETORNO_EXITOSO 0
 #define RETORNO_INVALIDO -1
 
@@ -161,7 +162,16 @@ int ejecutarOpcion(int opcionSeleccionada,float *operando1,int *flagOperando1,fl
 						printf("Debera ingresar los operando para esta opcion \n");
 					break;
 				case 4:
-					printf("resultado");
+					if(*flagOperando1 == 1 && *flagOperando2 == 1)
+					{
+						printf("a) El resultado de la suma (%f+%f)\n",*operando1,*operando2, suma2float(*operando1,*operando2));
+						printf("b) El resultado de la resta (%f-%f)\n",*operando1,*operando2, resta2float(*operando1,*operando2));
+						printf("b) El resultado de la division (%f/%f)\n",*operando1,*operando2, division2float(*operando1,*operando2));
+						printf("d) El resultado de la multiplicacion (%f*%f)\n",*operando1,*operando2,multiplic2float(*operando1,*operando2));
+						printf("e) El resultado de el factorial (%f!) \n",*operando1,factorial(*operando1));
+					}
+					else
+						printf("Debera ingresar los operando para esta opcion \n");
 					break;
 			}
 
